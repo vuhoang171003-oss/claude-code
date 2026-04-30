@@ -126,9 +126,10 @@
           <h2 class="font-heading font-bold text-lg text-white">Revenue Overview</h2>
           <p class="text-sm text-slate-500 mt-0.5">Monthly revenue and order trends</p>
         </div>
-        <div class="flex gap-3">
-          <button class="px-3 py-1.5 text-xs bg-primary/20 text-primary border border-primary/30 rounded-lg">Revenue</button>
-          <button class="px-3 py-1.5 text-xs text-slate-400 hover:text-white transition-colors">Orders</button>
+        <div class="flex gap-1 p-1 bg-white/5 rounded-lg border border-white/10">
+          <button id="btnRevenue" onclick="switchRevenueTab('revenue')" class="px-3 py-1.5 text-xs bg-primary/20 text-primary border border-primary/30 rounded-md transition-all">Revenue</button>
+          <button id="btnOrders" onclick="switchRevenueTab('orders')" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white transition-colors rounded-md">Orders</button>
+          <button id="btnProfit" onclick="switchRevenueTab('profit')" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white transition-colors rounded-md">Profit</button>
         </div>
       </div>
       <div id="revenueChart" class="w-full" style="height: 320px;"></div>
@@ -157,6 +158,49 @@
 
     </div>
 
+    <!-- Gold Price -->
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <div>
+          <h2 class="font-heading font-bold text-lg text-white">Gold Price Tracker</h2>
+          <p class="text-sm text-slate-500 mt-0.5">Daily XAU/USD spot price — current month</p>
+        </div>
+        <div class="flex gap-1 p-1 bg-white/5 rounded-lg border border-white/10">
+          <button id="btnGoldDaily" onclick="switchGoldTab('daily')" class="px-3 py-1.5 text-xs bg-primary/20 text-primary border border-primary/30 rounded-md transition-all">Daily</button>
+          <button id="btnGoldWeekly" onclick="switchGoldTab('weekly')" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white transition-colors rounded-md">Weekly</button>
+          <button id="btnGoldMonthly" onclick="switchGoldTab('monthly')" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white transition-colors rounded-md">Monthly</button>
+        </div>
+      </div>
+
+      <!-- Gold KPI Strip -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+        <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4">
+          <p class="text-xs text-slate-500 mb-1">Current Price</p>
+          <p class="font-heading font-bold text-xl text-yellow-400">$2,847.30</p>
+          <p class="text-xs text-green-400 mt-1 flex items-center gap-1">
+            <i data-lucide="arrow-up" class="w-3 h-3"></i>+$24.50 (+0.87%)
+          </p>
+        </div>
+        <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4">
+          <p class="text-xs text-slate-500 mb-1">Month High</p>
+          <p class="font-heading font-bold text-xl text-white">$2,912.40</p>
+          <p class="text-xs text-slate-500 mt-1">Apr 8, 2026</p>
+        </div>
+        <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4">
+          <p class="text-xs text-slate-500 mb-1">Month Low</p>
+          <p class="font-heading font-bold text-xl text-white">$2,681.10</p>
+          <p class="text-xs text-slate-500 mt-1">Apr 2, 2026</p>
+        </div>
+        <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4">
+          <p class="text-xs text-slate-500 mb-1">MTD Change</p>
+          <p class="font-heading font-bold text-xl text-green-400">+6.2%</p>
+          <p class="text-xs text-slate-500 mt-1">Year high: $3,104.68</p>
+        </div>
+      </div>
+
+      <div id="goldChart" class="w-full" style="height: 280px;"></div>
+    </div>
+
     <!-- Tabs: Region + Top Sales -->
     <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
 
@@ -177,9 +221,9 @@
             <h2 class="font-heading font-bold text-lg text-white">Revenue by Region</h2>
             <p class="text-sm text-slate-500 mt-0.5">Geographic sales distribution across global markets</p>
           </div>
-          <div class="flex gap-2">
-            <button class="px-3 py-1.5 text-xs bg-primary/20 text-primary border border-primary/30 rounded-lg">Revenue</button>
-            <button class="px-3 py-1.5 text-xs text-slate-400 hover:text-white transition-colors">Orders</button>
+          <div class="flex gap-1 p-1 bg-white/5 rounded-lg border border-white/10">
+            <button id="btnRegionRevenue" onclick="switchRegionTab('revenue')" class="px-3 py-1.5 text-xs bg-primary/20 text-primary border border-primary/30 rounded-md transition-all">Revenue</button>
+            <button id="btnRegionOrders" onclick="switchRegionTab('orders')" class="px-3 py-1.5 text-xs text-slate-400 hover:text-white transition-colors rounded-md">Orders</button>
           </div>
         </div>
         <div id="regionChart" class="w-full" style="height: 300px;"></div>
@@ -289,6 +333,227 @@
       </div>
     </div>
 
+    <!-- Customer Analytics + Reviews -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+
+      <!-- Customer Segments -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div class="mb-4">
+          <h2 class="font-heading font-bold text-lg text-white">Customer Segments</h2>
+          <p class="text-sm text-slate-500 mt-0.5">New vs returning customer split</p>
+        </div>
+        <div id="customerChart" class="w-full" style="height: 220px;"></div>
+        <div class="mt-4 space-y-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">New Customers</span>
+            <span class="text-white font-medium">12,840</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">Returning</span>
+            <span class="text-white font-medium">28,460</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">Loyal (3+ orders)</span>
+            <span class="text-white font-medium">8,920</span>
+          </div>
+          <div class="flex items-center justify-between text-sm border-t border-white/5 pt-2">
+            <span class="text-slate-400">Total Customers</span>
+            <span class="text-primary font-bold">50,220</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Lifetime Value -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div class="mb-4">
+          <h2 class="font-heading font-bold text-lg text-white">Customer Lifetime Value</h2>
+          <p class="text-sm text-slate-500 mt-0.5">Average spend and order frequency</p>
+        </div>
+        <div id="clvChart" class="w-full" style="height: 220px;"></div>
+        <div class="mt-4 grid grid-cols-2 gap-3">
+          <div class="bg-white/[0.02] border border-white/5 rounded-xl p-3 text-center">
+            <p class="text-xs text-slate-500 mb-1">Avg. Order Value</p>
+            <p class="font-heading font-bold text-lg text-white">$73.97</p>
+          </div>
+          <div class="bg-white/[0.02] border border-white/5 rounded-xl p-3 text-center">
+            <p class="text-xs text-slate-500 mb-1">Purchase Freq.</p>
+            <p class="font-heading font-bold text-lg text-white">3.2x</p>
+          </div>
+          <div class="bg-white/[0.02] border border-white/5 rounded-xl p-3 text-center">
+            <p class="text-xs text-slate-500 mb-1">CLV</p>
+            <p class="font-heading font-bold text-lg text-green-400">$236.70</p>
+          </div>
+          <div class="bg-white/[0.02] border border-white/5 rounded-xl p-3 text-center">
+            <p class="text-xs text-slate-500 mb-1">Churn Rate</p>
+            <p class="font-heading font-bold text-lg text-red-400">4.8%</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews & Ratings -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div class="mb-4">
+          <h2 class="font-heading font-bold text-lg text-white">Reviews & Ratings</h2>
+          <p class="text-sm text-slate-500 mt-0.5">Customer satisfaction breakdown</p>
+        </div>
+        <div class="flex items-center gap-4 mb-4">
+          <div class="text-center">
+            <p class="font-heading font-extrabold text-4xl text-white">4.6</p>
+            <div class="flex gap-0.5 mt-1 justify-center" id="starsRating"></div>
+            <p class="text-xs text-slate-500 mt-1">12,840 reviews</p>
+          </div>
+          <div class="flex-1 space-y-1.5" id="ratingBars"></div>
+        </div>
+        <div class="border-t border-white/10 pt-4 space-y-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">Return Rate</span>
+            <span class="text-white font-medium">2.4%</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">Response Time</span>
+            <span class="text-white font-medium">4.2 hrs</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">CSAT Score</span>
+            <span class="text-green-400 font-medium">91.2%</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Traffic Sources + Payment Methods -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+
+      <!-- Traffic Sources -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div class="mb-4">
+          <h2 class="font-heading font-bold text-lg text-white">Traffic Sources</h2>
+          <p class="text-sm text-slate-500 mt-0.5">Session volume by acquisition source</p>
+        </div>
+        <div id="trafficChart" class="w-full" style="height: 220px;"></div>
+        <div class="mt-4 space-y-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">Bounce Rate</span>
+            <span class="text-white font-medium">34.2%</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">Avg. Session Duration</span>
+            <span class="text-white font-medium">3m 42s</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">Pages / Session</span>
+            <span class="text-white font-medium">4.8</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">New Sessions</span>
+            <span class="text-primary font-bold">58.4%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Methods -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div class="mb-4">
+          <h2 class="font-heading font-bold text-lg text-white">Payment Methods</h2>
+          <p class="text-sm text-slate-500 mt-0.5">Transaction distribution by payment type</p>
+        </div>
+        <div id="paymentChart" class="w-full" style="height: 220px;"></div>
+        <div class="mt-4 space-y-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">Avg. Transaction</span>
+            <span class="text-white font-medium">$74.18</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">Failed Transactions</span>
+            <span class="text-red-400 font-medium">0.8%</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">Cart Abandonment</span>
+            <span class="text-white font-medium">68.4%</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-slate-400">Checkout Conversion</span>
+            <span class="text-green-400 font-bold">31.6%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Revenue Trend -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div class="mb-4">
+          <h2 class="font-heading font-bold text-lg text-white">Daily Revenue Trend</h2>
+          <p class="text-sm text-slate-500 mt-0.5">Last 7 days revenue snapshot</p>
+        </div>
+        <div id="dailyTrendChart" class="w-full" style="height: 220px;"></div>
+        <div class="mt-4 grid grid-cols-2 gap-2">
+          <div class="bg-white/[0.02] border border-white/5 rounded-xl p-3 text-center">
+            <p class="text-xs text-slate-500 mb-1">Best Day</p>
+            <p class="font-heading font-bold text-sm text-green-400">Saturday</p>
+          </div>
+          <div class="bg-white/[0.02] border border-white/5 rounded-xl p-3 text-center">
+            <p class="text-xs text-slate-500 mb-1">Lowest Day</p>
+            <p class="font-heading font-bold text-sm text-slate-400">Monday</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Inventory & Returns -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+
+      <!-- Inventory Summary -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div class="mb-6">
+          <h2 class="font-heading font-bold text-lg text-white">Inventory Summary</h2>
+          <p class="text-sm text-slate-500 mt-0.5">Stock levels across categories</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-white/10">
+                <th class="text-left py-3 px-3 text-xs text-slate-500 uppercase tracking-wider font-medium">Category</th>
+                <th class="text-right py-3 px-3 text-xs text-slate-500 uppercase tracking-wider font-medium">In Stock</th>
+                <th class="text-right py-3 px-3 text-xs text-slate-500 uppercase tracking-wider font-medium">Low Stock</th>
+                <th class="text-right py-3 px-3 text-xs text-slate-500 uppercase tracking-wider font-medium">Out of Stock</th>
+                <th class="text-right py-3 px-3 text-xs text-slate-500 uppercase tracking-wider font-medium">Turnover</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Shipping & Delivery -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div class="mb-6">
+          <h2 class="font-heading font-bold text-lg text-white">Shipping & Delivery</h2>
+          <p class="text-sm text-slate-500 mt-0.5">Logistics and fulfillment metrics</p>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4 text-center">
+            <p class="text-xs text-slate-500 mb-1">Avg. Delivery</p>
+            <p class="font-heading font-bold text-xl text-white">3.2 days</p>
+          </div>
+          <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4 text-center">
+            <p class="text-xs text-slate-500 mb-1">On-Time Rate</p>
+            <p class="font-heading font-bold text-xl text-green-400">96.4%</p>
+          </div>
+          <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4 text-center">
+            <p class="text-xs text-slate-500 mb-1">Shipping Cost</p>
+            <p class="font-heading font-bold text-xl text-white">$8.40</p>
+          </div>
+          <div class="bg-white/[0.02] border border-white/5 rounded-xl p-4 text-center">
+            <p class="text-xs text-slate-500 mb-1">Return Rate</p>
+            <p class="font-heading font-bold text-xl text-red-400">2.4%</p>
+          </div>
+        </div>
+        <div id="deliveryChart" class="w-full" style="height: 160px;"></div>
+      </div>
+
+    </div>
+
   </main>
 
   <script>
@@ -296,18 +561,18 @@
 
     // Mock Data
     const monthlyData = [
-      { month: 'Jul', revenue: 38200, orders: 512 },
-      { month: 'Aug', revenue: 41500, orders: 561 },
-      { month: 'Sep', revenue: 38900, orders: 534 },
-      { month: 'Oct', revenue: 44600, orders: 603 },
-      { month: 'Nov', revenue: 52300, orders: 712 },
-      { month: 'Dec', revenue: 61200, orders: 834 },
-      { month: 'Jan', revenue: 47800, orders: 645 },
-      { month: 'Feb', revenue: 44200, orders: 598 },
-      { month: 'Mar', revenue: 49600, orders: 673 },
-      { month: 'Apr', revenue: 53400, orders: 728 },
-      { month: 'May', revenue: 58200, orders: 789 },
-      { month: 'Jun', revenue: 62840, orders: 842 },
+      { month: 'Jul', revenue: 38200, orders: 512, profit: 9932 },
+      { month: 'Aug', revenue: 41500, orders: 561, profit: 10790 },
+      { month: 'Sep', revenue: 38900, orders: 534, profit: 10124 },
+      { month: 'Oct', revenue: 44600, orders: 603, profit: 11596 },
+      { month: 'Nov', revenue: 52300, orders: 712, profit: 13598 },
+      { month: 'Dec', revenue: 61200, orders: 834, profit: 15912 },
+      { month: 'Jan', revenue: 47800, orders: 645, profit: 11950 },
+      { month: 'Feb', revenue: 44200, orders: 598, profit: 11050 },
+      { month: 'Mar', revenue: 49600, orders: 673, profit: 12400 },
+      { month: 'Apr', revenue: 53400, orders: 728, profit: 13350 },
+      { month: 'May', revenue: 58200, orders: 789, profit: 14550 },
+      { month: 'Jun', revenue: 62840, orders: 842, profit: 15710 },
     ];
 
     const categoryData = [
@@ -373,7 +638,117 @@
       { rank: 10, name: 'Carlos Mendez', region: 'Latin America', sales: 164, orders: 87, revenue: 25020, target: 24000, achievement: 104.3 },
     ];
 
-    // Revenue Chart
+    const customerData = [
+      { name: 'Returning', value: 28460, color: '#DF6B33' },
+      { name: 'Loyal', value: 8920, color: '#818CF8' },
+      { name: 'New', value: 12840, color: '#34D399' },
+    ];
+
+    const clvData = [
+      { month: 'Jan', clv: 198, aov: 68 },
+      { month: 'Feb', clv: 204, aov: 70 },
+      { month: 'Mar', clv: 210, aov: 71 },
+      { month: 'Apr', clv: 218, aov: 72 },
+      { month: 'May', clv: 226, aov: 73 },
+      { month: 'Jun', clv: 237, aov: 74 },
+    ];
+
+    const ratingBreakdown = [
+      { stars: 5, count: 7840 },
+      { stars: 4, count: 2840 },
+      { stars: 3, count: 1240 },
+      { stars: 2, count: 560 },
+      { stars: 1, count: 360 },
+    ];
+
+    const inventoryData = [
+      { category: 'Electronics', inStock: 1284, lowStock: 86, outOfStock: 12, turnover: 8.4 },
+      { category: 'Fashion', inStock: 3420, lowStock: 142, outOfStock: 8, turnover: 12.1 },
+      { category: 'Home & Living', inStock: 2180, lowStock: 64, outOfStock: 5, turnover: 6.8 },
+      { category: 'Beauty', inStock: 1640, lowStock: 98, outOfStock: 14, turnover: 9.2 },
+      { category: 'Sports', inStock: 980, lowStock: 42, outOfStock: 3, turnover: 7.6 },
+    ];
+
+    const deliveryData = [
+      { method: 'Standard', avgDays: 4.2, rate: 94.2 },
+      { method: 'Express', avgDays: 2.1, rate: 97.8 },
+      { method: 'Next Day', avgDays: 0.9, rate: 99.1 },
+      { method: 'International', avgDays: 8.4, rate: 88.6 },
+    ];
+
+    const trafficData = [
+      { source: 'Organic', sessions: 142800, color: '#DF6B33' },
+      { source: 'Direct', sessions: 98600, color: '#818CF8' },
+      { source: 'Paid', sessions: 72400, color: '#34D399' },
+      { source: 'Social', sessions: 54800, color: '#F472B6' },
+      { source: 'Email', sessions: 41200, color: '#FBBF24' },
+      { source: 'Referral', sessions: 28600, color: '#60A5FA' },
+    ];
+
+    const paymentData = [
+      { method: 'Credit Card', value: 42, color: '#DF6B33' },
+      { method: 'PayPal', value: 24, color: '#818CF8' },
+      { method: 'Apple Pay', value: 16, color: '#34D399' },
+      { method: 'Bank Transfer', value: 10, color: '#F472B6' },
+      { method: 'COD', value: 8, color: '#FBBF24' },
+    ];
+
+    const dailyTrendData = [
+      { day: 'Mon', revenue: 1820 },
+      { day: 'Tue', revenue: 2140 },
+      { day: 'Wed', revenue: 2380 },
+      { day: 'Thu', revenue: 2560 },
+      { day: 'Fri', revenue: 2890 },
+      { day: 'Sat', revenue: 3420 },
+      { day: 'Sun', revenue: 2680 },
+    ];
+
+    const goldDailyData = [
+      { date: 'Apr 1', price: 2681.10 },
+      { date: 'Apr 2', price: 2698.30 },
+      { date: 'Apr 3', price: 2712.80 },
+      { date: 'Apr 4', price: 2705.60 },
+      { date: 'Apr 5', price: 2731.40 },
+      { date: 'Apr 6', price: 2754.20 },
+      { date: 'Apr 7', price: 2768.90 },
+      { date: 'Apr 8', price: 2784.50 },
+      { date: 'Apr 9', price: 2791.20 },
+      { date: 'Apr 10', price: 2785.40 },
+      { date: 'Apr 11', price: 2798.70 },
+      { date: 'Apr 12', price: 2812.60 },
+      { date: 'Apr 13', price: 2804.10 },
+      { date: 'Apr 14', price: 2819.30 },
+      { date: 'Apr 15', price: 2826.80 },
+      { date: 'Apr 16', price: 2814.50 },
+      { date: 'Apr 17', price: 2828.90 },
+      { date: 'Apr 18', price: 2841.20 },
+      { date: 'Apr 19', price: 2836.70 },
+      { date: 'Apr 20', price: 2849.10 },
+      { date: 'Apr 21', price: 2832.40 },
+      { date: 'Apr 22', price: 2844.80 },
+      { date: 'Apr 23', price: 2838.60 },
+      { date: 'Apr 24', price: 2851.30 },
+      { date: 'Apr 25', price: 2834.90 },
+      { date: 'Apr 26', price: 2842.10 },
+      { date: 'Apr 27', price: 2853.60 },
+      { date: 'Apr 28', price: 2847.30 },
+    ];
+
+    const goldWeeklyData = [
+      { date: 'Week 1', price: 2698.30 },
+      { date: 'Week 2', price: 2754.20 },
+      { date: 'Week 3', price: 2812.60 },
+      { date: 'Week 4', price: 2849.10 },
+    ];
+
+    const goldMonthlyData = [
+      { date: 'Jan', price: 2426.80 },
+      { date: 'Feb', price: 2489.40 },
+      { date: 'Mar', price: 2614.70 },
+      { date: 'Apr', price: 2847.30 },
+    ];
+
+    // Revenue Chart with tab switching
     const revenueTooltip = {
       contentStyle: {
         backgroundColor: '#1a1b2e',
@@ -388,48 +763,70 @@
       labelStyle: { color: '#94a3b8', marginBottom: '4px' },
     };
 
-    Recharts.createChart(document.getElementById('revenueChart'), () => (
-      Recharts.ComposedChart({
-        data: monthlyData,
-        margin: { top: 0, right: 0, left: -20, bottom: 0 },
-        children: [
-          Recharts.XAxis({
-            dataKey: 'month',
-            tick: { fill: '#64748b', fontSize: 12, fontFamily: 'Inter' },
-            axisLine: { stroke: 'rgba(255,255,255,0.05)' },
-            tickLine: false,
-          }),
-          Recharts.YAxis({
-            tick: { fill: '#64748b', fontSize: 12, fontFamily: 'Inter' },
-            axisLine: false,
-            tickLine: false,
-            tickFormatter: (v) => `$${(v / 1000).toFixed(0)}k`,
-          }),
-          Recharts.CartesianGrid({ strokeDasharray: '3 3', vertical: false }),
-          Recharts.Tooltip(revenueTooltip),
-          Recharts.Bar({
-            dataKey: 'revenue',
-            fill: '#DF6B33',
-            radius: [6, 6, 0, 0],
-            name: 'Revenue',
-            barSize: 32,
-          }),
-          Recharts.Line({
-            type: 'monotone',
-            dataKey: 'orders',
-            stroke: '#818CF8',
-            strokeWidth: 2,
-            dot: { r: 3, fill: '#818CF8', strokeWidth: 0 },
-            activeDot: { r: 5, fill: '#818CF8', strokeWidth: 0 },
-            name: 'Orders',
-          }),
-          Recharts.Legend({
-            wrapperStyle: { paddingTop: '16px', fontSize: '12px', fontFamily: 'Inter' },
-            iconType: 'circle',
-          }),
-        ],
-      })
-    ));
+    let currentRevenueTab = 'revenue';
+
+    function switchRevenueTab(tab) {
+      currentRevenueTab = tab;
+      const btnRev = document.getElementById('btnRevenue');
+      const btnOrd = document.getElementById('btnOrders');
+      const btnPro = document.getElementById('btnProfit');
+      [btnRev, btnOrd, btnPro].forEach(b => {
+        b.classList.remove('bg-primary/20', 'text-primary', 'border-primary/30');
+        b.classList.add('text-slate-400');
+      });
+      const active = tab === 'revenue' ? btnRev : tab === 'orders' ? btnOrd : btnPro;
+      active.classList.add('bg-primary/20', 'text-primary', 'border-primary/30');
+      active.classList.remove('text-slate-400');
+      renderRevenueChart();
+    }
+
+    function renderRevenueChart() {
+      const el = document.getElementById('revenueChart');
+      const metric = currentRevenueTab;
+      const colors = { revenue: '#DF6B33', orders: '#818CF8', profit: '#34D399' };
+      const formats = {
+        revenue: (v) => `$${(v / 1000).toFixed(0)}k`,
+        orders: (v) => v.toString(),
+        profit: (v) => `$${(v / 1000).toFixed(0)}k`,
+      };
+      const labels = { revenue: 'Revenue ($)', orders: 'Orders (#)', profit: 'Profit ($)' };
+
+      Recharts.createChart(el, () =>
+        Recharts.ComposedChart({
+          data: monthlyData,
+          margin: { top: 0, right: 0, left: -20, bottom: 0 },
+          children: [
+            Recharts.XAxis({
+              dataKey: 'month',
+              tick: { fill: '#64748b', fontSize: 12, fontFamily: 'Inter' },
+              axisLine: { stroke: 'rgba(255,255,255,0.05)' },
+              tickLine: false,
+            }),
+            Recharts.YAxis({
+              tick: { fill: '#64748b', fontSize: 12, fontFamily: 'Inter' },
+              axisLine: false,
+              tickLine: false,
+              tickFormatter: formats[metric],
+            }),
+            Recharts.CartesianGrid({ strokeDasharray: '3 3', vertical: false }),
+            Recharts.Tooltip(revenueTooltip),
+            Recharts.Bar({
+              dataKey: metric,
+              fill: colors[metric],
+              radius: [6, 6, 0, 0],
+              name: labels[metric],
+              barSize: 40,
+            }),
+            Recharts.Legend({
+              wrapperStyle: { paddingTop: '12px', fontSize: '12px', fontFamily: 'Inter' },
+              iconType: 'circle',
+            }),
+          ],
+        })
+      );
+    }
+
+    renderRevenueChart();
 
     // Category Pie Chart
     Recharts.createChart(document.getElementById('categoryChart'), () => (
@@ -597,50 +994,83 @@
       lucide.createIcons();
     }
 
-    // Revenue by Region Chart
-    Recharts.createChart(document.getElementById('regionChart'), () => (
-      Recharts.BarChart({
-        data: regionData,
-        margin: { top: 0, right: 0, left: -10, bottom: 0 },
-        children: [
-          Recharts.XAxis({
-            dataKey: 'region',
-            tick: { fill: '#94a3b8', fontSize: 11, fontFamily: 'Inter' },
-            axisLine: { stroke: 'rgba(255,255,255,0.05)' },
-            tickLine: false,
-          }),
-          Recharts.YAxis({
-            tick: { fill: '#64748b', fontSize: 11, fontFamily: 'Inter' },
-            axisLine: false,
-            tickLine: false,
-            tickFormatter: (v) => `$${(v / 1000).toFixed(0)}k`,
-          }),
-          Recharts.CartesianGrid({ strokeDasharray: '3 3', vertical: false }),
-          Recharts.Tooltip({
-            contentStyle: {
-              backgroundColor: '#1a1b2e',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '12px',
-              color: '#e2e8f0',
-              fontSize: '12px',
-              fontFamily: 'Inter',
-            },
-            formatter: (value) => [`$${value.toLocaleString()}`, 'Revenue'],
-          }),
-          Recharts.Bar({
-            dataKey: 'revenue',
-            fill: '#DF6B33',
-            radius: [6, 6, 0, 0],
-            name: 'Revenue',
-            barSize: 48,
-          }),
-          Recharts.Legend({
-            wrapperStyle: { paddingTop: '12px', fontSize: '12px', fontFamily: 'Inter' },
-            iconType: 'circle',
-          }),
-        ],
-      })
-    ));
+    // Revenue by Region Chart with tab switching
+    let currentRegionTab = 'revenue';
+
+    function switchRegionTab(tab) {
+      currentRegionTab = tab;
+      const btnRev = document.getElementById('btnRegionRevenue');
+      const btnOrd = document.getElementById('btnRegionOrders');
+      [btnRev, btnOrd].forEach(b => {
+        b.classList.remove('bg-primary/20', 'text-primary', 'border-primary/30');
+        b.classList.add('text-slate-400');
+      });
+      const active = tab === 'revenue' ? btnRev : btnOrd;
+      active.classList.add('bg-primary/20', 'text-primary', 'border-primary/30');
+      active.classList.remove('text-slate-400');
+      renderRegionChart();
+    }
+
+    function renderRegionChart() {
+      const el = document.getElementById('regionChart');
+      const metric = currentRegionTab;
+      const colors = { revenue: '#DF6B33', orders: '#818CF8' };
+      const formats = {
+        revenue: (v) => `$${(v / 1000).toFixed(0)}k`,
+        orders: (v) => v.toLocaleString(),
+      };
+      const labels = { revenue: 'Revenue ($)', orders: 'Orders (#)' };
+
+      Recharts.createChart(el, () =>
+        Recharts.BarChart({
+          data: regionData,
+          margin: { top: 0, right: 0, left: -10, bottom: 0 },
+          children: [
+            Recharts.XAxis({
+              dataKey: 'region',
+              tick: { fill: '#94a3b8', fontSize: 11, fontFamily: 'Inter' },
+              axisLine: { stroke: 'rgba(255,255,255,0.05)' },
+              tickLine: false,
+            }),
+            Recharts.YAxis({
+              tick: { fill: '#64748b', fontSize: 11, fontFamily: 'Inter' },
+              axisLine: false,
+              tickLine: false,
+              tickFormatter: formats[metric],
+            }),
+            Recharts.CartesianGrid({ strokeDasharray: '3 3', vertical: false }),
+            Recharts.Tooltip({
+              contentStyle: {
+                backgroundColor: '#1a1b2e',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '12px',
+                color: '#e2e8f0',
+                fontSize: '12px',
+                fontFamily: 'Inter',
+              },
+              formatter: (value, name) => {
+                const label = metric === 'revenue' ? 'Revenue' : 'Orders';
+                const fmt = metric === 'revenue' ? `$${value.toLocaleString()}` : value.toLocaleString();
+                return [fmt, label];
+              },
+            }),
+            Recharts.Bar({
+              dataKey: metric,
+              fill: colors[metric],
+              radius: [6, 6, 0, 0],
+              name: labels[metric],
+              barSize: 48,
+            }),
+            Recharts.Legend({
+              wrapperStyle: { paddingTop: '12px', fontSize: '12px', fontFamily: 'Inter' },
+              iconType: 'circle',
+            }),
+          ],
+        })
+      );
+    }
+
+    renderRegionChart();
 
     // Top Sales Employees Table
     const salesTable = document.getElementById('salesTable');
@@ -683,6 +1113,374 @@
       `;
       salesTable.appendChild(tr);
     });
+
+    // Customer Segments Pie Chart
+    Recharts.createChart(document.getElementById('customerChart'), () => (
+      Recharts.PieChart({
+        children: [
+          Recharts.Pie({
+            data: customerData,
+            cx: '50%',
+            cy: '50%',
+            innerRadius: 45,
+            outerRadius: 80,
+            paddingAngle: 3,
+            dataKey: 'value',
+            children: customerData.map((entry, i) =>
+              Recharts.Cell({ key: `cell-${i}`, fill: entry.color })
+            ),
+          }),
+          Recharts.Tooltip({
+            contentStyle: {
+              backgroundColor: '#1a1b2e',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '12px',
+              color: '#e2e8f0',
+              fontSize: '12px',
+              fontFamily: 'Inter',
+            },
+            formatter: (value) => [value.toLocaleString(), 'Customers'],
+          }),
+          Recharts.Legend({
+            layout: 'horizontal',
+            align: 'center',
+            iconType: 'circle',
+            iconSize: 8,
+            wrapperStyle: { fontSize: '10px', fontFamily: 'Inter' },
+          }),
+        ],
+      })
+    ));
+
+    // CLV Area Chart
+    Recharts.createChart(document.getElementById('clvChart'), () => (
+      Recharts.AreaChart({
+        data: clvData,
+        margin: { top: 4, right: 0, left: -20, bottom: 0 },
+        children: [
+          Recharts.XAxis({
+            dataKey: 'month',
+            tick: { fill: '#64748b', fontSize: 10, fontFamily: 'Inter' },
+            axisLine: { stroke: 'rgba(255,255,255,0.05)' },
+            tickLine: false,
+          }),
+          Recharts.YAxis({
+            tick: { fill: '#64748b', fontSize: 10, fontFamily: 'Inter' },
+            axisLine: false,
+            tickLine: false,
+            tickFormatter: (v) => `$${v}`,
+          }),
+          Recharts.CartesianGrid({ strokeDasharray: '3 3', vertical: false }),
+          Recharts.Tooltip({
+            contentStyle: {
+              backgroundColor: '#1a1b2e',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '12px',
+              color: '#e2e8f0',
+              fontSize: '12px',
+              fontFamily: 'Inter',
+            },
+            formatter: (value) => [`$${value}`, 'CLV'],
+          }),
+          Recharts.Area({
+            type: 'monotone',
+            dataKey: 'clv',
+            stroke: '#DF6B33',
+            fill: 'rgba(223,107,51,0.15)',
+            strokeWidth: 2,
+            dot: { r: 3, fill: '#DF6B33', strokeWidth: 0 },
+            activeDot: { r: 4, fill: '#DF6B33', strokeWidth: 0 },
+            name: 'CLV',
+          }),
+        ],
+      })
+    ));
+
+    // Star Rating Display
+    const starsContainer = document.getElementById('starsRating');
+    for (let i = 0; i < 5; i++) {
+      const icon = document.createElement('i');
+      icon.setAttribute('data-lucide', 'star');
+      icon.className = 'w-3 h-3 text-yellow-400 fill-yellow-400';
+      starsContainer.appendChild(icon);
+    }
+
+    // Rating Breakdown Bars
+    const maxRating = Math.max(...ratingBreakdown.map(r => r.count));
+    const ratingBarsContainer = document.getElementById('ratingBars');
+    ratingBreakdown.slice().reverse().forEach(row => {
+      const pct = (row.count / maxRating) * 100;
+      const wrapper = document.createElement('div');
+      wrapper.className = 'flex items-center gap-1.5';
+      wrapper.innerHTML = `
+        <span class="text-xs text-slate-500 w-3 text-right">${row.stars}</span>
+        <i data-lucide="star" class="w-3 h-3 text-yellow-400 fill-yellow-400 flex-shrink-0"></i>
+        <div class="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
+          <div class="h-full rounded-full bg-yellow-400" style="width: ${pct}%"></div>
+        </div>
+        <span class="text-xs text-slate-500 w-8 text-right">${row.count.toLocaleString()}</span>
+      `;
+      ratingBarsContainer.appendChild(wrapper);
+    });
+
+    // Inventory Table
+    const inventoryTable = document.getElementById('inventoryTable');
+    inventoryData.forEach((row, i) => {
+      const turnoverColor = row.turnover >= 10 ? 'text-green-400' : row.turnover >= 7 ? 'text-blue-400' : 'text-slate-300';
+      const tr = document.createElement('tr');
+      tr.className = `border-b border-white/5 ${i % 2 === 0 ? 'bg-white/[0.02]' : ''} hover:bg-white/5 transition-colors`;
+      tr.innerHTML = `
+        <td class="py-3 px-3 text-slate-300 font-medium">${row.category}</td>
+        <td class="py-3 px-3 text-right text-slate-300">${row.inStock.toLocaleString()}</td>
+        <td class="py-3 px-3 text-right">
+          <span class="inline-flex items-center justify-center min-w-[40px] px-2 py-0.5 rounded-md text-xs font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">${row.lowStock}</span>
+        </td>
+        <td class="py-3 px-3 text-right">
+          <span class="inline-flex items-center justify-center min-w-[40px] px-2 py-0.5 rounded-md text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">${row.outOfStock}</span>
+        </td>
+        <td class="py-3 px-3 text-right ${turnoverColor} font-medium">${row.turnover}x</td>
+      `;
+      inventoryTable.appendChild(tr);
+    });
+
+    // Delivery Chart (Grouped Bar)
+    Recharts.createChart(document.getElementById('deliveryChart'), () => (
+      Recharts.BarChart({
+        data: deliveryData,
+        margin: { top: 0, right: 0, left: -20, bottom: 0 },
+        children: [
+          Recharts.XAxis({
+            dataKey: 'method',
+            tick: { fill: '#94a3b8', fontSize: 10, fontFamily: 'Inter' },
+            axisLine: { stroke: 'rgba(255,255,255,0.05)' },
+            tickLine: false,
+          }),
+          Recharts.YAxis({
+            tick: { fill: '#64748b', fontSize: 10, fontFamily: 'Inter' },
+            axisLine: false,
+            tickLine: false,
+            tickFormatter: (v) => `${v}%`,
+          }),
+          Recharts.CartesianGrid({ strokeDasharray: '3 3', vertical: false }),
+          Recharts.Tooltip({
+            contentStyle: {
+              backgroundColor: '#1a1b2e',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '12px',
+              color: '#e2e8f0',
+              fontSize: '12px',
+              fontFamily: 'Inter',
+            },
+            formatter: (value, name) => [`${value}%`, name === 'rate' ? 'On-Time Rate' : name],
+          }),
+          Recharts.Bar({
+            dataKey: 'rate',
+            fill: '#34D399',
+            radius: [4, 4, 0, 0],
+            name: 'On-Time Rate',
+            barSize: 36,
+          }),
+        ],
+      })
+    ));
+
+    // Traffic Sources Bar Chart
+    Recharts.createChart(document.getElementById('trafficChart'), () => (
+      Recharts.BarChart({
+        data: trafficData,
+        layout: 'vertical',
+        margin: { top: 0, right: 30, left: 0, bottom: 0 },
+        children: [
+          Recharts.XAxis({
+            type: 'number',
+            tick: { fill: '#64748b', fontSize: 10, fontFamily: 'Inter' },
+            axisLine: false,
+            tickLine: false,
+            tickFormatter: (v) => `${(v / 1000).toFixed(0)}k`,
+          }),
+          Recharts.YAxis({
+            type: 'category',
+            dataKey: 'source',
+            tick: { fill: '#94a3b8', fontSize: 11, fontFamily: 'Inter' },
+            axisLine: false,
+            tickLine: false,
+            width: 55,
+          }),
+          Recharts.CartesianGrid({ strokeDasharray: '3 3', horizontal: false }),
+          Recharts.Tooltip({
+            contentStyle: {
+              backgroundColor: '#1a1b2e',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '12px',
+              color: '#e2e8f0',
+              fontSize: '12px',
+              fontFamily: 'Inter',
+            },
+            formatter: (value) => [value.toLocaleString() + ' sessions', 'Sessions'],
+          }),
+          Recharts.Bar({
+            dataKey: 'sessions',
+            fill: '#818CF8',
+            radius: [0, 4, 4, 0],
+            name: 'Sessions',
+            barSize: 14,
+          }),
+        ],
+      })
+    ));
+
+    // Payment Methods Donut Chart
+    Recharts.createChart(document.getElementById('paymentChart'), () => (
+      Recharts.PieChart({
+        children: [
+          Recharts.Pie({
+            data: paymentData,
+            cx: '50%',
+            cy: '50%',
+            innerRadius: 45,
+            outerRadius: 80,
+            paddingAngle: 3,
+            dataKey: 'value',
+            children: paymentData.map((entry, i) =>
+              Recharts.Cell({ key: `cell-${i}`, fill: entry.color })
+            ),
+          }),
+          Recharts.Tooltip({
+            contentStyle: {
+              backgroundColor: '#1a1b2e',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '12px',
+              color: '#e2e8f0',
+              fontSize: '12px',
+              fontFamily: 'Inter',
+            },
+            formatter: (value) => [`${value}%`, 'Share'],
+          }),
+          Recharts.Legend({
+            layout: 'horizontal',
+            align: 'center',
+            iconType: 'circle',
+            iconSize: 8,
+            wrapperStyle: { fontSize: '10px', fontFamily: 'Inter' },
+          }),
+        ],
+      })
+    ));
+
+    // Daily Revenue Trend Area Chart
+    Recharts.createChart(document.getElementById('dailyTrendChart'), () => (
+      Recharts.AreaChart({
+        data: dailyTrendData,
+        margin: { top: 4, right: 0, left: -20, bottom: 0 },
+        children: [
+          Recharts.XAxis({
+            dataKey: 'day',
+            tick: { fill: '#64748b', fontSize: 10, fontFamily: 'Inter' },
+            axisLine: { stroke: 'rgba(255,255,255,0.05)' },
+            tickLine: false,
+          }),
+          Recharts.YAxis({
+            tick: { fill: '#64748b', fontSize: 10, fontFamily: 'Inter' },
+            axisLine: false,
+            tickLine: false,
+            tickFormatter: (v) => `$${(v / 1000).toFixed(1)}k`,
+          }),
+          Recharts.CartesianGrid({ strokeDasharray: '3 3', vertical: false }),
+          Recharts.Tooltip({
+            contentStyle: {
+              backgroundColor: '#1a1b2e',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '12px',
+              color: '#e2e8f0',
+              fontSize: '12px',
+              fontFamily: 'Inter',
+            },
+            formatter: (value) => [`$${value.toLocaleString()}`, 'Revenue'],
+          }),
+          Recharts.Area({
+            type: 'monotone',
+            dataKey: 'revenue',
+            stroke: '#F472B6',
+            fill: 'rgba(244,114,182,0.15)',
+            strokeWidth: 2,
+            dot: { r: 3, fill: '#F472B6', strokeWidth: 0 },
+            activeDot: { r: 4, fill: '#F472B6', strokeWidth: 0 },
+            name: 'Revenue',
+          }),
+        ],
+      })
+    ));
+
+    // Gold Price Chart with tab switching
+    let currentGoldTab = 'daily';
+
+    function switchGoldTab(tab) {
+      currentGoldTab = tab;
+      const btnD = document.getElementById('btnGoldDaily');
+      const btnW = document.getElementById('btnGoldWeekly');
+      const btnM = document.getElementById('btnGoldMonthly');
+      [btnD, btnW, btnM].forEach(b => {
+        b.classList.remove('bg-primary/20', 'text-primary', 'border-primary/30');
+        b.classList.add('text-slate-400');
+      });
+      const active = tab === 'daily' ? btnD : tab === 'weekly' ? btnW : btnM;
+      active.classList.add('bg-primary/20', 'text-primary', 'border-primary/30');
+      active.classList.remove('text-slate-400');
+      renderGoldChart();
+    }
+
+    function renderGoldChart() {
+      const el = document.getElementById('goldChart');
+      const data = currentGoldTab === 'daily' ? goldDailyData
+                   : currentGoldTab === 'weekly' ? goldWeeklyData
+                   : goldMonthlyData;
+
+      Recharts.createChart(el, () =>
+        Recharts.AreaChart({
+          data: data,
+          margin: { top: 4, right: 0, left: -10, bottom: 0 },
+          children: [
+            Recharts.XAxis({
+              dataKey: 'date',
+              tick: { fill: '#94a3b8', fontSize: 10, fontFamily: 'Inter' },
+              axisLine: { stroke: 'rgba(255,255,255,0.05)' },
+              tickLine: false,
+            }),
+            Recharts.YAxis({
+              tick: { fill: '#64748b', fontSize: 10, fontFamily: 'Inter' },
+              axisLine: false,
+              tickLine: false,
+              tickFormatter: (v) => `$${(v / 1000).toFixed(1)}k`,
+              domain: ['dataMin - 20', 'dataMax + 20'],
+            }),
+            Recharts.CartesianGrid({ strokeDasharray: '3 3', vertical: false }),
+            Recharts.Tooltip({
+              contentStyle: {
+                backgroundColor: '#1a1b2e',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '12px',
+                color: '#e2e8f0',
+                fontSize: '12px',
+                fontFamily: 'Inter',
+              },
+              formatter: (value) => [`$${value.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 'Price'],
+            }),
+            Recharts.Area({
+              type: 'monotone',
+              dataKey: 'price',
+              stroke: '#FBBF24',
+              fill: 'rgba(251,191,36,0.12)',
+              strokeWidth: 2,
+              dot: false,
+              activeDot: { r: 4, fill: '#FBBF24', strokeWidth: 0 },
+              name: 'Gold Price',
+            }),
+          ],
+        })
+      );
+    }
+
+    renderGoldChart();
 
     lucide.createIcons();
   </script>
